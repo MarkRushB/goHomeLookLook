@@ -3,48 +3,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中心图片与音乐播放按键</title>
+    <title>go home look look</title>
     <style>
         body {
+            margin: 0;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: red;
+            font-family: 'Georgia', Times, serif;
+            padding: 20px;
+            background-color: #f9f9f9;
         }
-        .image-container {
+        .header {
+            font-size: 4em;
+            font-weight: bold;
+            margin-top: 20px;
             text-align: center;
         }
-        img {
+        .sub-header {
+            font-size: 1.5em;
+            font-style: italic;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+        .details-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+            padding: 20px 40px;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            font-size: 1em;
+            margin-bottom: 30px;
+            background-color: #fff;
+        }
+        .details-bar .left, .details-bar .right {
+            font-weight: bold;
+            flex: 1;
+        }
+        .details-bar .center {
+            text-align: center;
+            flex-grow: 2;
+        }
+        @media (max-width: 480px) {
+            .details-bar {
+                text-align: center;
+                justify-content: center;
+            }
+            .details-bar .left, .details-bar .right {
+                flex: unset;
+                width: 100%;
+                text-align: center;
+            }
+        }
+        .content-image-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
             max-width: 100%;
+            width: 100%;
+        }
+        .content {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .content h2 {
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .content h3 {
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        .content p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            text-align: justify;
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             height: auto;
         }
+        img {
+            width: 100%;
+            max-width: 700px;
+            height: auto;
+            object-fit: cover;
+        }
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid black;
+            border-radius: 3px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .song-info {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+        .song-title {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .song-artist {
+            font-size: 1em;
+            font-style: italic;
+        }
         button {
-            margin-top: 20px;
-            padding: 10px 20px;
+            background-color: #000;
+            border: 1px solid black;
+            color: #fff;
+            padding: 10px;
             font-size: 16px;
             cursor: pointer;
+            border-radius: 3px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #333;
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 200px;
+            height: 5px;
+            border-radius: 3px;
+            background: #ddd;
+            outline: none;
+            border: 1px solid black;
+            transition: background 0.3s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #000;
+            cursor: pointer;
+            border: 1px solid black;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #000;
+            cursor: pointer;
+            border: 1px solid black;
+        }
+
+        @media (min-width: 768px) {
+            .content-image-wrapper {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: stretch;
+            }
+            .content, .image-container {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
+            .image-container {
+                max-height: unset;
+                height: auto;
+                overflow: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                font-size: 2.5em;
+            }
+            .sub-header {
+                font-size: 1.2em;
+            }
+            .details-bar {
+                font-size: 0.9em;
+                padding: 10px;
+            }
+            .content p {
+                font-size: 1em;
+            }
+            button {
+                font-size: 14px;
+                padding: 8px;
+            }
+            .controls {
+                width: 90%;
+                padding: 5px;
+                gap: 5px;
+            }
+            input[type="range"] {
+                width: 150px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="image-container">
-        <img src="your-image.jpg" alt="中心图片">
-        <button onclick="playMusic()">播放音乐</button>
-        <audio id="audio" src="/gohomelook.m4a"></audio>
+    <div class="header">The Station Landing Times</div>
+    <div class="sub-header">go home look look</div>
+    <div class="details-bar">
+        <div class="left">VOL. CLXX . . . No. 58,976</div>
+        <div class="center" id="date-container">纽约，星期日，今天的日期</div>
+        <div class="right">$6.00</div>
     </div>
+    <div class="content-image-wrapper">
+        <div class="content">
+            <h2>费杰献唱《go home look look》，震撼北美歌坛</h2>
+            <h3>倾情献唱，星探蜂拥而至</h3>
+            <p>After years of living in the United States, Fei Jay has accumulated countless life insights, and these emotions finally erupted in his song. His single "go home look look" was released this holiday season, and it immediately shook the North American music scene. The melody is touching, and the emotions are sincere, leaving no listener unmoved.</p>
+            <p>多年旅美，费杰积累了无数生活感悟，这些感情终于在歌声中喷涌而出。他的单曲《go home look look》在这个佳节之际发布，一时间震惊北美歌坛。歌声悠扬，感情真挚，听者无不为之动容。</p>
+            <p>NEW YORK — As soon as the song was released, major record companies and talent scouts flocked to Fei Jay's door, almost wearing out the doorstep. Someone sighed, "This is truly the most moving melody of the year!" Others exclaimed, "I've never heard such heartfelt singing before; Fei Jay's talent is simply immeasurable!"</p>
+            <p>纽约——这首歌一经发布，各大唱片公司、星探纷纷不请自来，费杰家门口几乎被踏破。有人感叹：“这可真是今年最动人的旋律！”也有人表示：“从未听过如此动情的演唱，费杰的才华简直不可估量！”</p>
+            <p>Fei Jay's neighbors are even prouder, saying, "He's our pride! We always knew he could sing well, but we didn't expect it to be this amazing!"</p>
+            <p>费杰的邻居们更是纷纷自豪地说：“他可是我们的骄傲！以前只知道他唱歌好，没想到能这么好！”</p>
+            <p>Talent scouts, clutching contracts, came knocking, even lining up overnight outside Fei Jay's house to be the first to discover this shining star. People are amazed at Fei Jay's musical talent and happy for this approachable neighbor. Undoubtedly, "go home look look" has become the hottest track of the year, and Fei Jay, the musician who never gave up on his dreams, is finally embracing his moment in the spotlight.</p>
+            <p>星探们纷纷拿着合同登门造访，甚至为了抢先一步，彻夜在费杰家外排队。每个人都想成为发现这颗璀璨之星的第一人。人们惊叹于费杰的音乐天赋，同时也为这位平易近人的邻居感到高兴。毫无疑问，《go home look look》已经成为今年最火的曲目，而费杰，这位从未放弃梦想的音乐人，正迎来属于他的高光时刻。</p>
+        </div>
+        <div class="image-container">
+            <img src="jay.gif" alt="中心图片">
+        </div>
+    </div>
+    <div class="controls">
+        <div class="song-info">
+            <div class="song-title">go home look look</div>
+            <div class="song-artist">Jay Fei</div>
+        </div>
+        <button onclick="playMusic()">Play</button>
+        <input type="range" id="progressBar" value="0" min="0" max="100">
+    </div>
+    <audio id="audio" src="/gohomelook.m4a"></audio>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateContainer = document.getElementById('date-container');
+            const today = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedDate = today.toLocaleDateString('en-US', options).toUpperCase();
+            dateContainer.textContent = `MEDFORD，${formattedDate}`;
+        });
+
+        const audio = document.getElementById('audio');
+        const progressBar = document.getElementById('progressBar');
+
         function playMusic() {
-            var audio = document.getElementById('audio');
             if (audio.paused) {
                 audio.play();
             } else {
                 audio.pause();
             }
         }
+
+        audio.addEventListener('timeupdate', function() {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressBar.value = progress;
+        });
+
+        progressBar.addEventListener('input', function() {
+            const seekTime = (progressBar.value / 100) * audio.duration;
+            audio.currentTime = seekTime;
+        });
     </script>
 </body>
 </html>
